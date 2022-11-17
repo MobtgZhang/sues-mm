@@ -21,9 +21,10 @@
 \RequirePackage{ifxetex}
 \RequireXeTeX
 \ifxetex\else
-\ClassError{mcmthesis}{You must use the `xelatex' driver\MessageBreak Please choose `xelatex'}{%
+\ClassError{suesmmthesis}{You must use the `xelatex' driver\MessageBreak Please choose `xelatex'}{%
 Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 \fi
+
 % 页面布局设置
 % ----------------------------------------------------------
 % 页面布局
@@ -59,8 +60,8 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 \RequirePackage{amsmath,amsfonts,amssymb,bm}
 % 设置颜色的包
 \RequirePackage{color,xcolor}
-% 实现文字的shadow样式
-\makeatletter
+% 设置标题阴影的样式
+% ----------------------------------------------------------
 \newlength\st@shadowoffsetx
 \newlength\st@shadowoffsety
 
@@ -79,6 +80,7 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 \newlength\st@temp@height 
 \newlength\st@pic@width
 \newlength\st@pic@height
+
 \newcommand\shadowtext[1]%
 {%
    \begingroup%
@@ -103,7 +105,8 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 	\endgroup%
 	\ignorespaces%
 }
-\makeatother
+
+
 % ---------------------------------------------------
 % 插入图片
 \RequirePackage{graphicx} 
@@ -147,6 +150,9 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
   font={song,minusfour,bf}, % 表的字体, 宋体小四
   position=top % position=bottom, 不代表标题放在下面, 标题仍放在你放\caption的位置.
 }
+% ----------------------------------------------------------
+% 生成指定长度的下划线，默认是4cm
+\newcommand\dlmu[2][4cm]{\hskip1pt\underline{\hb@xt@ #1{\hss#2\hss}}\hskip3pt}
 % ----------------------------------------------------------
 %% booktabs 提供了\toprule 等命令.
 \RequirePackage{booktabs}
@@ -209,6 +215,11 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 % ---------------------------------------------------
 % 载入自动引用宏包
 \RequirePackage{cleveref}
+\crefname{figure}{图}{图}
+\crefname{table}{表}{表}
+\crefname{equation}{式}{式}
+\renewcommand{\eqref}[1]{\labelcref{#1}~\namecref{#1}}
+
 % 数学环境, 定理等设置
 \newtheorem{definition}{定义}
 \crefname{definition}{定义}{定义}
@@ -247,29 +258,20 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 
 \newtheorem{solution}{解}
 \crefname{solution}{解}{解}
+
+
+
 % ---------------------------------------------------
-% 参考文献设置
-\RequirePackage{titletoc}
-\renewenvironment{thebibliography}[1]
-     {%\section*{\refname}%
-      \@mkboth{\MakeUppercase\refname}{\MakeUppercase\refname}%
-      \list{\@biblabel{\@arabic\c@enumiv}}%
-           {\settowidth\labelwidth{\@biblabel{#1}}%
-            \leftmargin\labelwidth
-            \advance\leftmargin\labelsep
-            \@openbib@code
-            \usecounter{enumiv}%
-            \let\p@enumiv\@empty
-            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
-      \sloppy
-      \clubpenalty4000
-      \@clubpenalty \clubpenalty
-      \widowpenalty4000%
-      \sfcode`\.\@m}
-{\def\@noitemerr
-    {\@latex@warning{Empty `thebibliography' environment}}%
-    \endlist
-} 
+% 设置图表标注方式
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+\renewcommand{\thefigure}{\arabic{section}-\arabic{figure}} 
+\renewcommand{\thetable}{\arabic{section}-\arabic{table}} 
+% ---------------------------------------------------
+% 载入参考文献宏包，设置引用格式
+\RequirePackage{natbib}
+\setcitestyle{square,super}
+\RequirePackage{titletoc} 
 %----------------------------------------------------
 % 浮动环境设置
 % 默认情况下, \LaTeX{} 要求每页的文字至少占据 20%,否则该页就只单独放置一个浮动环境,
@@ -319,6 +321,7 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 
 % 设置代码环境
 \RequirePackage{listings}
+
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
@@ -352,7 +355,105 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 
 \titlecontents{subsubsection}[55pt]{\songti}
 {\thecontentslabel\hskip.5em}{}{\titlerule*[0.5pc]{.}\contentspage}
+% 文档开始导入默认配置
+
+% 定义一些常见的变量等等
+% 定义标签的默认值
+\def\suesmmthesis@value@facultyname{学院}
+\def\suesmmthesis@value@subjectname{专业}
+\def\suesmmthesis@value@classname{班级}
+\def\suesmmthesis@value@teamnumber{M123456789}
+\def\suesmmthesis@value@teammemberA{队员A}
+\def\suesmmthesis@value@teammemberB{队员B}
+\def\suesmmthesis@value@teammemberC{队员C}
+\def\suesmmthesis@value@suesmmtitle{上海工程技术大学竞赛发布标题}
+\def\suesmmthesis@value@contenttitle{数学建模论文标题}
+\def\suesmmthesis@value@keywords{关键字1，关键字2，关键字3}
+
+%定义用户填写上述标签对应值的命令,需要用户在主文档自行调用
+\newcommand\facultyname[1]{\def\suesmmthesis@value@facultyname{#1}}
+\newcommand\subjectname[1]{\def\suesmmthesis@value@subjectname{#1}}
+\newcommand\classname[1]{\def\suesmmthesis@value@classname{#1}}
+\newcommand\teamnumber[1]{\def\suesmmthesis@value@teamnumber{#1}}
+
+\newcommand\teammemberA[1]{\def\suesmmthesis@value@teammemberA{#1}}
+\newcommand\teammemberB[1]{\def\suesmmthesis@value@teammemberB{#1}}
+\newcommand\teammemberC[1]{\def\suesmmthesis@value@teammemberC{#1}}
+\newcommand\suesmmtitle[1]{\def\suesmmthesis@value@suesmmtitle{#1}}
+\newcommand\contenttitle[1]{\def\suesmmthesis@value@contenttitle{#1}}
+\newcommand\keywords[1]{\def\suesmmthesis@value@keywords{#1}}
+
+% 创建页面
+\newcommand{\makecover}{
+    \thispagestyle{empty}
+    \begin{center}
+        \begin{figure*}
+            \centering
+            \includegraphics[width=6cm,height=6cm]{sues-logo.jpg}
+        \end{figure*}
+        
+        \vspace{1cm}
+        
+        \zihao{-1}\xinwei\shadowtext{上海工程技术大学}
+
+        \zihao{-1}\xinwei\shadowtext{\suesmmthesis@value@suesmmtitle}
+
+    \end{center}
+
+    \vspace{2cm}
+
+    \begin{table*}[hpb]
+        \zihao{-2}\bfseries
+        \begin{tabular}{p{0.25\textwidth}<{\centering}p{0.65\textwidth}<{\raggedright}}
+            学\qquad 院 & \suesmmthesis@value@facultyname \\\toprule[1pt]
+            专\qquad 业 & \suesmmthesis@value@subjectname \\\midrule[1pt]
+            班\qquad 级 & \suesmmthesis@value@classname \\\midrule[1pt]
+            参赛队号   &  \suesmmthesis@value@teamnumber \\\midrule[1pt]
+            \multirow{3}{*}{队员姓名} & 1.\quad \suesmmthesis@value@teammemberA \\\cmidrule[0.75pt]{2-2}
+                            & 2.\quad  \suesmmthesis@value@teammemberB \\\cmidrule[0.75pt]{2-2}
+                            & 3.\quad  \suesmmthesis@value@teammemberC \\\bottomrule[1pt]
+        \end{tabular}
+    \end{table*}
+    \newpage
+}
+
+%% 定义摘要环境
+\renewenvironment{abstract}{
+
+  \begin{center}
+    \zihao{-1}\xinwei\shadowtext{上海工程技术大学}
+
+    \zihao{-1}\xinwei\shadowtext{\suesmmthesis@value@suesmmtitle}
+
+    \vspace{2em}
+  \end{center}
+    
+  \begin{center}
+    \zihao{4}\bfseries{题\qquad 目 \quad }\dlmu[0.6\textwidth]{\suesmmthesis@value@contenttitle}
+    
+    \vspace{2em}
+
+    \zihao{3}\lishu{摘 \qquad \quad 要:}\vspace{1em}
+  \end{center}
+  % 每行缩进两个汉字
+  \setlength\parindent{2em}
+
+}{
+  
+  \vspace{2em}
+
+  \noindent\zihao{-4}\heiti{关键字：}\quad{\suesmmthesis@value@keywords}
+  \newpage
+}
+
+% 定义附录  
+\renewcommand\appendix{\par
+  \setcounter{section}{0}%
+   \setcounter{subsection}{0}%
+  \gdef\thesection{\appendixname\@Alph\c@section}}  
+
 
 \pagestyle{plain}
+
 \endinput
 
