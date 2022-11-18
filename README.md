@@ -7,6 +7,8 @@
 ## 使用方法
 本模板使用`xetex->bibtex->xetex->xetex`编译的命令即可进行编译处理。
 + [OverLeaf地址](https://www.overleaf.com/read/mynpkfvwqjnm)
++ [latexstudio地址](https://www.latexstudio.net/index/details/index/ids/3065)
+
 ## 参考
 
 + [GBT7714-2005标准下的BibTeX样式](https://github.com/Haixing-Hu/GBT7714-2005-BibTeX-Style)
