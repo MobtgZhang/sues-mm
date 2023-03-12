@@ -6,6 +6,10 @@
 
 ## 使用方法
 本模板使用`xetex->bibtex->xetex->xetex`编译的命令即可进行编译处理。
+
+在使用过程中可能需要一些字体，可以从overleaf上下载对应的字体文件。
+
+
 + [OverLeaf地址](https://www.overleaf.com/read/mynpkfvwqjnm)
 + [latexstudio地址](https://www.latexstudio.net/index/details/index/ids/3065)
 
