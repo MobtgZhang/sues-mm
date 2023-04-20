@@ -14,6 +14,7 @@
 %% Executing of Options
 \ExecuteOptions{colorprint}
 \ProcessOptions\relax
+
 %% Loading Class
 \LoadClass[a4paper,cs4size,zihao=-4,space=auto]{ctexart}
 % 论文中其他汉字一律采用小四号宋体字，行距用单倍行距。
@@ -43,7 +44,7 @@ Just choose `xelatex', no `pdflatex' or `latex' and so on.}
 \setmainfont{Times New Roman}
 \setmonofont{Courier New}
 \setsansfont{Arial}
-\setCJKmainfont[AutoFakeBold = {2.15},ItalicFont={KaiTi}]{SimSun.ttf}
+%\setCJKmainfont[AutoFakeBold = {2.15},ItalicFont={\kaishu}]{\songti}
 % 增加汉字
 \setCJKfamilyfont{xw}{STXinwei.ttf}
 
