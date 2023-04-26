@@ -9,6 +9,27 @@
 
 在使用过程中可能需要一些字体，可以从overleaf上下载对应的字体文件。
 
+# Windows 用户使用方法
+
+可以使用以下的命令生成和删除对应的文件：
+```bat
+.\Compile.bat all    :: 编译生成commitment.pdf,format.pdf和paper.pdf三个文件
+.\Compile.bat clean    :: 删除编译所产生的中间文件，不包括PDF
+.\Compile.bat cleanall    :: 删除所有中间文件，包括PDF
+.\Compile.bat wordcount    :: 论文字数统计
+```
+
+# Linux/FreeBSD/MacOS用户使用方法
+
+可以使用以下的命令生成和删除对应的文件：
+```makefile
+make all                # 编译生成commitment.pdf,format.pdf和paper.pdf三个文件
+make clean              # 删除编译所产生的中间文件，不包括PDF
+make cleanall           # 删除所有中间文件，包括PDF
+make wordcount          # 论文字数统计
+```
+
+Overleaf地址上已经部署好对应的论文，在上面直接使用即可，需要先将源码导入到自己的项目中去才可以使用它。
 
 + [OverLeaf地址](https://www.overleaf.com/read/mynpkfvwqjnm)
 + [latexstudio地址](https://www.latexstudio.net/index/details/index/ids/3065)
