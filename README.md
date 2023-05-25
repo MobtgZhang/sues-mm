@@ -34,6 +34,10 @@ Overleaf地址上已经部署好对应的论文，在上面直接使用即可，
 + [OverLeaf地址](https://www.overleaf.com/read/mynpkfvwqjnm)
 + [latexstudio地址](https://www.latexstudio.net/index/details/index/ids/3065)
 
+## 免责声明
+
+此模板为个人实现，未得到学校任何相关人员的认证，使用者应当自行承担一切后果。
+
 ## 参考
 
 + [GBT7714-2005标准下的BibTeX样式](https://github.com/Haixing-Hu/GBT7714-2005-BibTeX-Style)
