@@ -29,7 +29,7 @@ make cleanall           # 删除所有中间文件，包括PDF
 make wordcount          # 论文字数统计
 ```
 
-Overleaf地址上已经部署好对应的论文，在上面直接使用即可，需要先将源码导入到自己的项目中去才可以使用它。
+Overleaf地址上已经部署好对应的论文，在上面直接使用即可，需要先将源码导入到自己的项目中去才可以使用它。注意将编译器修改为`xetex`，目前并不支持`pdfltex`编译器。
 
 + [OverLeaf地址](https://www.overleaf.com/read/mynpkfvwqjnm)
 + [latexstudio地址](https://www.latexstudio.net/index/details/index/ids/3065)
